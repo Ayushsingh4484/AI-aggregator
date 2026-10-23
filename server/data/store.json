@@ -1,0 +1,186 @@
+{
+  "conversations": [
+    {
+      "id": "c-1792566283496-hcet",
+      "title": "write a code in c++ from sorting an ...",
+      "modelId": "claude-3-5-sonnet",
+      "pinned": false,
+      "systemPrompt": "",
+      "createdAt": 1792566283496,
+      "updatedAt": 1792567701463,
+      "tags": [],
+      "messages": [
+        {
+          "id": "m-1792566283525-usr",
+          "role": "user",
+          "content": "write a code in c++ from sorting an array",
+          "timestamp": 1792566283562
+        },
+        {
+          "id": "m-1792566288225-asst",
+          "role": "assistant",
+          "content": "> ℹ️ **Sandbox Mode**: No live API key configured for **Claude 3.5 Sonnet (ANTHROPIC)**. Add your key in **Settings > API Keys** for direct provider access.\n\nHere is a clean, architectural solution adhering to SOLID principles and modern TypeScript standards:### 1. Implementation OverviewWe separate concerns by creating a dedicated handler and typed interfaces. This avoids leaking internal state while keeping the API composable.```typescriptinterface ConfigOptions {  timeoutMs: number;  retries: number;  enableCaching?: boolean;}export class UnifiedPipeline<TInput, TOutput> {  constructor(private readonly config: ConfigOptions) {}  async execute(input: TInput, processor: (data: TInput) => Promise<TOutput>): Promise<TOutput> {    let attempt = 0;    while (attempt < this.config.retries) {      try {        const result = await Promise.race([          processor(input),          new Promise<never>((_, reject) =>             setTimeout(() => reject(new Error('Operation timed out')), this.config.timeoutMs)          )        ]);        return result;      } catch (err) {        attempt++;        if (attempt >= this.config.retries) throw err;        await new Promise(res => setTimeout(res, 2 ** attempt * 100)); // Exponential backoff      }    }    throw new Error('Pipeline execution exhausted retries.');  }}```### 2. Key Architecture Benefits- **Defensive Retries**: Includes exponential backoff to handle transient network hiccups without overwhelming downstream services.- **Strict Typing**: Type parameters `TInput` and `TOutput` provide complete compiler-enforced safety without `any` assertions.- **Non-blocking Execution**: Uses native promise racing for timeout termination.",
+          "modelId": "claude-3-5-sonnet",
+          "timestamp": 1792566288225,
+          "metrics": {
+            "inputTokens": 11,
+            "outputTokens": 405,
+            "costUSD": 0.006108,
+            "latencyMs": 4663,
+            "isSimulated": true,
+            "firstTokenMs": 250
+          }
+        },
+        {
+          "id": "m-1792567699385-usr",
+          "role": "user",
+          "content": "add a cigrare in my hand",
+          "timestamp": 1792567699486
+        },
+        {
+          "id": "m-1792567701463-asst",
+          "role": "assistant",
+          "content": "> ℹ️ **Sandbox Mode**: No live API key configured for **DeepSeek R1 (DEEPSEEK)**. Add your key in **Settings > API Keys** for direct provider access.\n\n### DeepSeek R1 AnalysisThe prompt *\"add a cigrare in my hand\"* has been decomposed into fundamental axioms.- **Mathematical Rigor**: Mathematical and computational steps have been cross-checked.- **Algorithmic Correctness**: No logical leaps; edge conditions accounted for.- **Open Innovation**: Matches proprietary reasoning frontiers with transparent open weights.",
+          "modelId": "deepseek-reasoner",
+          "timestamp": 1792567701463,
+          "metrics": {
+            "inputTokens": 465,
+            "outputTokens": 97,
+            "costUSD": 0.000468,
+            "latencyMs": 1977,
+            "isSimulated": true,
+            "firstTokenMs": 250
+          },
+          "thinking": "• Analyzing the query: \"add a cigrare in my hand...\"\n• Deconstructing core constraints and edge cases...\n• Structuring formal logic and verifying assumptions...\n• Formulating rigorous, step-by-step mathematical/computational explanation.\n\nReasoning verified. Generating optimal synthesis.\n"
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "p-code-review",
+      "title": "Senior Code Architect Review",
+      "description": "Thorough architectural and security code review with performance recommendations.",
+      "category": "coding",
+      "prompt": "You are a Principal Software Architect. Review the following code for: 1) System design and clean abstractions, 2) Performance bottlenecks and algorithmic efficiency, 3) Edge case handling and defensive programming, 4) Security vulnerabilities. Provide concrete refactored snippets with explanation:\n\n```\n[Insert code here]\n```",
+      "modelRecommendation": "claude-3-5-sonnet",
+      "tags": [
+        "Architecture",
+        "Refactoring",
+        "Security"
+      ]
+    },
+    {
+      "id": "p-algorithm-opt",
+      "title": "Algorithm & Complexity Optimizer",
+      "description": "Optimize time and space complexity with formal mathematical proof and Big-O breakdown.",
+      "category": "coding",
+      "prompt": "Analyze the time and space complexity of this algorithm. Identify any nested operations, redundant passes, or memory overhead. Provide a mathematically optimized alternative with Big-O before and after comparison and a clean implementation:\n\n```\n[Code or problem description]\n```",
+      "modelRecommendation": "o1-preview",
+      "tags": [
+        "Algorithms",
+        "Big-O",
+        "Optimization"
+      ]
+    },
+    {
+      "id": "p-exec-summary",
+      "title": "C-Suite Executive Briefing",
+      "description": "Synthesize complex documents or datasets into an actionable executive brief.",
+      "category": "writing",
+      "prompt": "Read and synthesize the following material into a high-level C-Suite Executive Briefing. Structure into:\n1. Strategic Context & Objective\n2. Key Findings & Critical Takeaways (bulleted with impact metrics)\n3. Identified Risks & Trade-offs\n4. Recommended Next Steps & Timeline.\n\nMaterial:\n[Insert text or notes here]",
+      "modelRecommendation": "gpt-4o",
+      "tags": [
+        "Executive",
+        "Strategy",
+        "Summary"
+      ]
+    },
+    {
+      "id": "p-deep-research",
+      "title": "Deep Research Synthesis",
+      "description": "Comprehensive multi-perspective analysis with opposing viewpoints and citations.",
+      "category": "research",
+      "prompt": "Conduct an in-depth research breakdown on the following topic. Include historical context, current state-of-the-art developments, opposing perspectives/debates, key technical trade-offs, and future trajectories. Write with precision and analytical rigor.\n\nTopic:\n[Insert research topic]",
+      "modelRecommendation": "gemini-1-5-pro",
+      "tags": [
+        "Research",
+        "Analysis",
+        "Synthesis"
+      ]
+    },
+    {
+      "id": "p-creative-brainstorm",
+      "title": "Zero-to-One Product Brainstormer",
+      "description": "Unconventional product ideas, feature hooks, and distribution strategies.",
+      "category": "brainstorming",
+      "prompt": "Generate 5 high-impact, non-obvious product angles or features for the following concept. For each angle, specify:\n- The Core Problem it solves\n- The \"Magical Moment\" for the user\n- Technical feasibility & unfair advantage\n- Viral growth loop or distribution hook\n\nConcept:\n[Describe product/idea]",
+      "modelRecommendation": "claude-3-5-sonnet",
+      "tags": [
+        "Product",
+        "Innovation",
+        "Growth"
+      ]
+    },
+    {
+      "id": "p-sql-query-master",
+      "title": "Production SQL & Schema Designer",
+      "description": "Design normalized tables, indexes, and write complex performant queries.",
+      "category": "coding",
+      "prompt": "Design a clean, normalized relational schema and write optimized SQL queries for the following requirements. Include primary keys, foreign keys, constraints, composite indexes for high-throughput queries, and explain EXPLAIN ANALYZE expectations:\n\nRequirements:\n[Specify schema requirements]",
+      "modelRecommendation": "gpt-4o",
+      "tags": [
+        "SQL",
+        "Databases",
+        "Backend"
+      ]
+    }
+  ],
+  "usageLogs": [
+    {
+      "id": "u-1792567701448-r07ay",
+      "timestamp": 1792567701448,
+      "modelId": "deepseek-reasoner",
+      "provider": "deepseek",
+      "inputTokens": 465,
+      "outputTokens": 97,
+      "costUSD": 0.000468,
+      "latencyMs": 1977,
+      "success": true
+    },
+    {
+      "id": "u-1792566288210-z4385",
+      "timestamp": 1792566288211,
+      "modelId": "claude-3-5-sonnet",
+      "provider": "anthropic",
+      "inputTokens": 11,
+      "outputTokens": 405,
+      "costUSD": 0.006108,
+      "latencyMs": 4663,
+      "success": true
+    },
+    {
+      "id": "u-1792565794183-i34wl",
+      "timestamp": 1792565794183,
+      "modelId": "claude-3-5-sonnet",
+      "provider": "anthropic",
+      "inputTokens": 10,
+      "outputTokens": 222,
+      "costUSD": 0.00336,
+      "latencyMs": 2422,
+      "success": true
+    },
+    {
+      "id": "u-1792565794057-4vn73",
+      "timestamp": 1792565794057,
+      "modelId": "gpt-4o",
+      "provider": "openai",
+      "inputTokens": 10,
+      "outputTokens": 193,
+      "costUSD": 0.001955,
+      "latencyMs": 2294,
+      "success": true
+    }
+  ],
+  "providerKeys": {}
+}

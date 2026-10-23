@@ -1,0 +1,26 @@
+{
+  "name": "gamora-omni-ai",
+  "version": "1.0.0",
+  "description": "gamoraAI / OmniAI - All AI in One Place Multi-Model Aggregator Platform",
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "build": "npm run build:server && npm run build:client"
+  },
+  "keywords": [
+    "ai",
+    "aggregator",
+    "openai",
+    "anthropic",
+    "claude",
+    "gemini",
+    "deepseek",
+    "groq",
+    "multi-model"
+  ],
+  "author": "gamoraAI",
+  "license": "MIT"
+}
