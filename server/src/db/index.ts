@@ -384,9 +384,12 @@ class DatabaseManager {
 
   getProviderKey(provider: string): string | null {
     // Check environment variable first (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY / GOOGLE_API_KEY, GROQ_API_KEY)
+    if (provider === 'google') {
+      const googleKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
+      if (googleKey) return googleKey;
+    }
     const envKey = process.env[`${provider.toUpperCase()}_API_KEY`];
     if (envKey) return envKey;
-    if (provider === 'google' && process.env.GOOGLE_API_KEY) return process.env.GOOGLE_API_KEY;
     return this.store.providerKeys[provider]?.raw || null;
   }
 
@@ -395,7 +398,7 @@ class DatabaseManager {
     const result: Record<string, any> = {};
 
     for (const p of providers) {
-      const envKey = process.env[`${p.toUpperCase()}_API_KEY`] || (p === 'google' ? process.env.GOOGLE_API_KEY : null);
+      const envKey = process.env[`${p.toUpperCase()}_API_KEY`] || (p === 'google' ? (process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY) : null);
       if (envKey) {
         result[p] = {
           configured: true,

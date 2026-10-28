@@ -7,7 +7,7 @@
       "pinned": false,
       "systemPrompt": "",
       "createdAt": 1792566283496,
-      "updatedAt": 1792567701463,
+      "updatedAt": 1793010435891,
       "tags": [],
       "messages": [
         {
@@ -52,6 +52,27 @@
             "firstTokenMs": 250
           },
           "thinking": "• Analyzing the query: \"add a cigrare in my hand...\"\n• Deconstructing core constraints and edge cases...\n• Structuring formal logic and verifying assumptions...\n• Formulating rigorous, step-by-step mathematical/computational explanation.\n\nReasoning verified. Generating optimal synthesis.\n"
+        },
+        {
+          "id": "m-1793010433478-usr",
+          "role": "user",
+          "content": "hey gemini can yu edit my image",
+          "timestamp": 1793010434072
+        },
+        {
+          "id": "m-1793010435891-asst",
+          "role": "assistant",
+          "content": "> ℹ️ **Sandbox Mode**: No live API key configured for **Gemini 1.5 Pro (GOOGLE)**. Add your key in **Settings > API Keys** for direct provider access.\n\n### Gemini 1.5 Pro AnalysisLeveraging **Gemini's 2,000,000 token context window**, we can ingest entire libraries, multi-thousand-line repositories, and full-length documents in a single prompt.| Capability | Gemini 1.5 Pro | Industry Baseline || :--- | :--- | :--- || **Context Window** | **2,000,000 tokens** | 128,000 tokens || **Multimodal Recall** | Video, Audio, Code, Text | Text & Images only || **Inference Cost** | $1.25 / 1M Input | $2.50 - $3.00 / 1M |For the prompt *\"hey gemini can yu edit my image\"*, Gemini processes cross-document relationships without chunking or vector loss.",
+          "modelId": "gemini-1-5-pro",
+          "timestamp": 1793010435891,
+          "metrics": {
+            "inputTokens": 611,
+            "outputTokens": 157,
+            "costUSD": 0.001549,
+            "latencyMs": 1819,
+            "isSimulated": true,
+            "firstTokenMs": 250
+          }
         }
       ]
     }
@@ -137,6 +158,17 @@
     }
   ],
   "usageLogs": [
+    {
+      "id": "u-1793010435861-cve0m",
+      "timestamp": 1793010435862,
+      "modelId": "gemini-1-5-pro",
+      "provider": "google",
+      "inputTokens": 611,
+      "outputTokens": 157,
+      "costUSD": 0.001549,
+      "latencyMs": 1819,
+      "success": true
+    },
     {
       "id": "u-1792567701448-r07ay",
       "timestamp": 1792567701448,

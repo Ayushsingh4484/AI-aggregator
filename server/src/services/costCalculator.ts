@@ -104,6 +104,23 @@ export const SUPPORTED_MODELS: AIModelInfo[] = [
     supportsThinking: false
   },
   {
+    id: 'gemini-3-5-flash',
+    name: 'Gemini 3.5 Flash',
+    provider: 'google',
+    contextWindow: 1000000,
+    maxOutputTokens: 8192,
+    inputCostPer1M: 0.10,
+    outputCostPer1M: 0.40,
+    speedScore: 9.9,
+    intelligenceScore: 9.5,
+    categories: ['fast', 'coding', 'research', 'general'],
+    description: 'Google’s next-gen high-speed multimodal reasoning model with 1M context window. Fast inference and deep intelligence.',
+    badge: 'State of the Art',
+    supportsVision: true,
+    supportsStreaming: true,
+    supportsThinking: false
+  },
+  {
     id: 'gpt-4o-mini',
     name: 'GPT-4o mini',
     provider: 'openai',

@@ -308,7 +308,15 @@ export class AIProviderService {
 
     // Google Gemini
     if (modelInfo.provider === 'google') {
-      const geminiModel = modelInfo.id === 'gemini-2-0-flash' ? 'gemini-2.0-flash' : 'gemini-1.5-pro';
+      let geminiModel = 'gemini-3.5-flash';
+      if (modelInfo.id === 'gemini-3-1-flash-lite' || modelInfo.id.includes('flash-lite')) {
+        geminiModel = 'gemini-3.1-flash-lite';
+      } else if (modelInfo.id.includes('preview')) {
+        geminiModel = 'gemini-3-flash-preview';
+      } else {
+        geminiModel = 'gemini-3.5-flash';
+      }
+
       const contents = messages.map(m => ({
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.content }]
@@ -328,7 +336,12 @@ export class AIProviderService {
 
       if (!res.ok) {
         const errorText = await res.text();
-        throw new Error(`HTTP ${res.status}: ${errorText}`);
+        let message = `HTTP ${res.status}: ${errorText}`;
+        try {
+          const parsed = JSON.parse(errorText);
+          if (parsed.error?.message) message = parsed.error.message;
+        } catch (_) {}
+        throw new Error(message);
       }
 
       if (!res.body) throw new Error('No response body');
@@ -350,10 +363,12 @@ export class AIProviderService {
           if (trimmed.startsWith('data: ')) {
             try {
               const data = JSON.parse(trimmed.slice(6));
-              const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-              if (text) {
-                outputText += text;
-                callbacks?.onToken(text);
+              const parts = data.candidates?.[0]?.content?.parts || [];
+              for (const part of parts) {
+                if (part.text) {
+                  outputText += part.text;
+                  callbacks?.onToken(part.text);
+                }
               }
             } catch (e) {
               // ignore
